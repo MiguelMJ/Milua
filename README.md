@@ -1,5 +1,13 @@
-# Milua
-Lua micro framework for web development
+<p align="center"><img align="center" src="doc/logo.svg" height="200px"></p>
+<h1 align="center">Milua</h2>
+<h3 align="center">Lua micro framework for web development</h3>
+<p align="center">
+<img src="https://img.shields.io/badge/Lua-5.4-2C2D72?style=flat-square&logo=lua">
+<img src="https://img.shields.io/badge/version-v0.1-informational?style=flat-square"/>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational?style=flat-square"/></a>
+</p>
+
+Milua is inspired by frameworks like Flask, so it just aims to be quick to install and simple to use, enough to prototype any idea you have in mind without needing to worry too much about third-party software.
 
 ## Preview
 
@@ -48,7 +56,7 @@ The user foo is very very very handsome
 ```
 
 ## Features
-Milua is inspired by frameworks like Flask, so it just aims to be quick to install and simple to use, enough to prototype any idea you have in mind without needing to worry too much about third-party software.
+
 
 Right now the `milua` module only offers two functions:
 
