@@ -3,7 +3,7 @@
 <h3 align="center">Lua micro framework for web development</h3>
 <p align="center">
 <img src="https://img.shields.io/badge/Lua-5.4-2C2D72?style=flat-square&logo=lua">
-<img src="https://img.shields.io/badge/version-v0.1-informational?style=flat-square"/>
+<img src="https://img.shields.io/luarocks/v/MiguelMJ/milua?style=flat-square"/>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational?style=flat-square"/></a>
 </p>
 
@@ -72,8 +72,12 @@ Right now the `milua` module only offers two functions:
 
 - `start(config)` where `config` contains the `host` and the `port` to run the application.
 
-## Build
-You can install it from the root of the directory using `luarocks`.
+## Installation
+You can install it directly from luarocks:
+```bash
+luarocks install milua
+```
+Alternatively, install it from the root of the directory of the repository.
 ```bash
 git clone https://github.com/MiguelMJ/Milua
 cd Milua
