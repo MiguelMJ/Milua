@@ -9,6 +9,13 @@
 
 Milua is inspired by frameworks like Flask, so it just aims to be quick to install and simple to use, enough to prototype any idea you have in mind without needing to worry too much about third-party software.
 
+- [Preview](#preview)
+- [Features](#features)
+- [Installation](#installation)
+- [Alternatives](#alternatives)
+- [License](#license)
+
+
 ## Preview
 
 `examples/handsome_server.lua`
@@ -83,6 +90,12 @@ git clone https://github.com/MiguelMJ/Milua
 cd Milua
 sudo luarocks make
 ```
+
+## Alternatives
+There are great frameworks and libraries also written in Lua. I personally find that none satisfies at the same time the requirements I had when creating Milua, but maybe you'll find one better suited for your needs.
+
+- [Lapis](https://github.com/leafo/lapis)
+- [Pegasus.lua](https://github.com/EvandroLG/pegasus.lua)
 
 ## License
 Milua is licensed under the [MIT license](LICENSE), a copy of which you can find in the repository.
