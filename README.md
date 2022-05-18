@@ -7,7 +7,7 @@
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational?style=flat-square"/></a>
 </p>
 
-Milua is inspired by frameworks like Flask, so it just aims to be quick to install and simple to use, enough to prototype any idea you have in mind without needing to worry too much about third-party software.
+Milua is inspired by frameworks like Flask or Express, so it just aims to be quick to install and simple to use, enough to prototype any idea you have in mind without needing to worry too much about third-party software.
 
 - [Preview](#preview)
 - [Features](#features)
