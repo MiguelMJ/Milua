@@ -18,6 +18,7 @@ dependencies = {
 build = {
    type = "builtin",
    modules = {
-      milua = "src/milua.lua"
+      milua = "src/milua.lua",
+      milua_log = "src/log.lua"
    }
 }
