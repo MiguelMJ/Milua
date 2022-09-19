@@ -1,4 +1,10 @@
-local app = require("../src")
+local app = require("milua")
+local logger = require("milua_log")
+
+logger:add_logger("INFO", function(...)
+    print("THIS IS A CUSTOM LOGGER ", logger.format(...))
+end
+)
 
 -- Basic example
 app.add_handler(
