@@ -64,8 +64,7 @@ The user foo is very very very handsome
 
 ## Features
 
-
-Right now the `milua` module only offers two functions:
+Right now the `milua` module only offers:
 
 - `add_handler(method, path, handler)` to associate a method and a path to a handler.
     - The handler function must accept the following arguments:
@@ -78,6 +77,32 @@ Right now the `milua` module only offers two functions:
         - (Optional) A table with the headers of the response.
 
 - `start(config)` where `config` contains the `host` and the `port` to run the application.
+- `logger` table with support for INFO, DEBUG, and ERROR logging levels
+    - usage:
+        - `logger:INFO("this is an info message")`
+        - `logger:ERROR("this is an error message")`
+        - `logger:DEBUG("this is a debug message")`
+    - How to custom logger levels:
+        - `logger:add_logger("INFO", function(...) print("THIS A TEMPLATE", logger.format(...)) end)`
+- `config` table with support for getting configuration values from environment variables as well as .env files
+    - This also let's you extend the config table with a new table where if you define an emty value for a key it will try to get it from a .env file or the os environment
+    - example: 
+        ```lua
+        local Config = require("milua_config")
+
+        Config:extend({
+            DB_NAME="name",
+            DB_PASS="pass",
+            DB_HOST="host",
+            HOST="localhost",
+            STDOUT="localhost",
+            WOLOLOLO=""
+        })
+        
+        Config.add_config("NEW_KEY", "NEW_VALUE")
+        
+        app.start(Config)
+        ```
 
 ## Installation
 You can install it directly from luarocks:
