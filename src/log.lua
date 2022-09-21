@@ -1,7 +1,5 @@
--- Logging support for milua
-
-STDOUT_LOG_CONFIG = "MILUA_STDOUT"
-STDERR_LOG_CONFIG = "MILUA_STDERR"
+local utilities = require("milua_utils")
+local config = require("milua_config")
 
 -- Local functions
 
@@ -17,40 +15,15 @@ local outputs = {
     end
 }
 
-local function dump_table(tbl)
-    -- parameters
-    --  tbl: table
-    -- return: string
-    -- A quick and easy way to dump a complete table into an string
-    -- this is really useful for logging
-    local output = '{ '
-    for key, value in pairs(tbl) do
-        print(key,value)
-        if type(key) ~= 'number' then key = '"'..key..'"' end
-        if type(value) == 'table' then value = dump_table(value) end
-        output = output .. '['..key..'] = ' .. value .. ','
-    end
-    return output .. '} '
-end
-
-local function errors_stream()
-    return os.getenv(STDERR_LOG_CONFIG) or "stderr"
-end
-
-local function output_stream()
-    return os.getenv(STDOUT_LOG_CONFIG) or "stdout"
-end
-
+--- format, create an string that represents any variable
+-- @param ... any amount of variables (any)
+-- @return msg (string)
+-- @usage str = format(variable_a, variable_b, variable_c)
 local function format(...)
-    -- paramenetrs
-    --   ANY
-    -- returns: string
-    -- Format all the arguments passed to the function into a valid
-    -- strig
     local msg = ''
     for _, value in pairs({...}) do
         if (type(value) == 'table') then
-            msg = msg..dump_table(value)..' '
+            msg = msg..utilities.dump_table(value)..' '
         else
             msg = msg..tostring(value)..' '
         end
@@ -58,13 +31,22 @@ local function format(...)
     return msg
 end
 
+--- default_formatter, defalut function to format the log output
+-- @param lvl the log lvl to use (string) 
+-- @param ... any amount of variables (any)
+-- @return msg (string)
+-- @usage str = default_formatter('INFO', variable_a, variable_b, variable_c)
 local function default_formatter(lvl, ...)
     return string.format("[%s] %s: %s\n", lvl, os.date("%c"), format(...))
 end
 
+--- default_logger, get a logger with the default configs
+-- @param lvl the log lvl to use (string) 
+-- @return function(msg) (function(string))
+-- @usage logger = default_logger('INFO'); logger('this is a pretty good message')
 local function default_logger(lvl)
-    local std_out = output_stream()
-    local std_err = errors_stream()
+    local std_out = config.STDOUT
+    local std_err = config.STDERR
     local stream
 
     if lvl == "ERROR" then
@@ -94,6 +76,12 @@ logger = {
     format = format;
 }
 
+--- logger:add_logger, add a custom logger function to the logger table
+-- @param lvl the log lvl to use (string) 
+-- @param logger_fn the logger function (function)
+-- @usage logger:add_logger("INFO", function(...)
+--     print("THIS IS A CUSTOM LOGGER ", logger.format(...))
+-- end
 function logger:add_logger(lvl, logger_fn)
     assert(self[lvl])
     self[lvl] = logger_fn

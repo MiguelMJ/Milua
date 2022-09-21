@@ -135,8 +135,8 @@ local function onerror(myserver, context, op, err, errno) -- luacheck: ignore 21
 function app.start(config)
     config = config or {}
     local myserver = assert(http_server.listen {
-        host = config.host or "localhost";
-        port = config.port or 8800;
+        host = config.HOST;
+        port = config.PORT;
         onstream = reply;
         onerror = onerror;
     })

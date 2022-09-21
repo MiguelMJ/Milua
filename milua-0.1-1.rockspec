@@ -19,6 +19,8 @@ build = {
    type = "builtin",
    modules = {
       milua = "src/milua.lua",
-      milua_log = "src/log.lua"
+      milua_log = "src/log.lua",
+      milua_utils = "src/utils.lua",
+      milua_config = "src/config.lua"
    }
 }
