@@ -1,4 +1,7 @@
 <p align="center"><img align="center" src="doc/logo.svg" height="200px"></p>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 <h1 align="center">Milua</h2>
 <h3 align="center">Lua micro framework for web development</h3>
 <p align="center">
@@ -119,6 +122,20 @@ sudo luarocks make
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/wmb1207"><img src="https://avatars.githubusercontent.com/u/89983571?v=4?s=100" width="100px;" alt=""/><br /><sub><b>wmb1207</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Code">💻</a> <a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
