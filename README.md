@@ -116,6 +116,17 @@ cd Milua
 sudo luarocks make
 ```
 
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ## Alternatives
 There are great frameworks and libraries also written in Lua. I personally find that none satisfies at the same time the requirements I had when creating Milua, but maybe you'll find one better suited for your needs.
 
