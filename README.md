@@ -1,7 +1,4 @@
 <p align="center"><img align="center" src="doc/logo.svg" height="200px"></p>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 <h1 align="center">Milua</h2>
 <h3 align="center">Lua micro framework for web development</h3>
 <p align="center">
