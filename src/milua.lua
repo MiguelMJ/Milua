@@ -48,7 +48,7 @@ local function reply(_, stream) -- luacheck: ignore 212
 
     logger.INFO(
         string.format(
-            '"%s %s HTTP/%g"  "%s" "%s"\n',
+            '"%s %s HTTP/%g" "%s" "%s"',
             req_method or "",
             path,
             stream.connection.version,
@@ -66,7 +66,6 @@ local function reply(_, stream) -- luacheck: ignore 212
     -- Default headers
     local res_headers = http_headers.new()
     res_headers:append(":status", "200")
-    res_headers:append("content-type", "text/plain")
 
     -- Look for a pattern that matches the path
     local path_wo_query = path:gsub("?.*", "")
@@ -92,7 +91,7 @@ local function reply(_, stream) -- luacheck: ignore 212
 
             -- Merge headers with defaults
             for key,value in pairs(ret_res_headers or {}) do
-                res_headers:apend(key, value)
+                res_headers:upsert(string.lower(key), value)
             end
 
             -- Send answer
@@ -100,9 +99,11 @@ local function reply(_, stream) -- luacheck: ignore 212
             if (not(result)) then
                 logger.ERROR(string.format("ERROR WRITING THE RESPONSE HEADERS %s", res_headers))
             end
-            result = stream:write_body_from_string(res_body, false)
-            if (not(result)) then
-                logger.ERROR(string.format("ERROR WRITING THE RESPONSE BODY %s", res_headers))
+            if (res_body) then
+                result = stream:write_body_from_string(res_body, false)
+                if (not(result)) then
+                    logger.ERROR(string.format("ERROR WRITING THE RESPONSE BODY %s", res_headers))
+                end
             end
             -- RETURN
             return
@@ -111,7 +112,8 @@ local function reply(_, stream) -- luacheck: ignore 212
     end
     -- If the loop ends it means that no pattern matched
     -- RETURN 404
-    res_headers:append(":status", 400)
+    res_headers:upsert(":status", "404")
+    res_headers:upsert("content-type", "text/plain")
     local response = stream:write_headers(res_headers, false)
     if (not(response)) then
         logger.ERROR(string.format("ERROR WRITING THE RESPONSE HEADERS %s", res_headers))
@@ -135,8 +137,8 @@ local function onerror(myserver, context, op, err, errno) -- luacheck: ignore 21
 function app.start(config)
     config = config or {}
     local myserver = assert(http_server.listen {
-        host = config.HOST;
-        port = config.PORT;
+        host = config.HOST or "localhost";
+        port = config.PORT or 8800;
         onstream = reply;
         onerror = onerror;
     })
@@ -150,7 +152,7 @@ function app.start(config)
 
     do
         local bound_port = select(3, myserver:localname())
-        logger.INFO(string.format("Now listening on port %d\n", bound_port))
+        logger.INFO(string.format("Now listening on port %d", bound_port))
     end
 
     -- Handle a Ctrl-C interruption
