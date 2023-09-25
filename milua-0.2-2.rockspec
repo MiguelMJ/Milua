@@ -2,7 +2,7 @@ package = "milua"
 version = "0.2-2"
 source = {
    url = "git+https://github.com/MiguelMJ/Milua",
-   tag = "v0.2"
+   tag = "v0.2-2"
 }
 description = {
    summary = "Micro framework for web applications",
