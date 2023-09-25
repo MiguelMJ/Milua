@@ -1,5 +1,5 @@
 package = "milua"
-version = "0.2-1"
+version = "0.2-2"
 source = {
    url = "git+https://github.com/MiguelMJ/Milua",
    tag = "v0.2"
@@ -16,11 +16,13 @@ dependencies = {
    "luaposix ~> 35.1-1"
 }
 build = {
-   type = "builtin",
-   modules = {
-      milua = "src/milua.lua",
-      milua_log = "src/log.lua",
-      milua_utils = "src/utils.lua",
-      milua_config = "src/config.lua"
+   type = "none",
+   install = {
+      lua = {
+         "src/milua.lua",
+         "src/milua_log.lua",
+         "src/milua_utils.lua",
+         "src/milua_config.lua"
+      }
    }
 }
