@@ -53,6 +53,11 @@ app.add_handler(
     end
 )
 
+-- Hooking the server close event
+app.shutdown_hook(function()
+    -- cleaning up any external resource
+end)
+
 app.start()
 ```
 You can run the example directly:
@@ -84,6 +89,8 @@ Right now the `milua` module only offers:
     - and must return the following values:
         - The body of the repsonse.
         - (Optional) A table with the headers of the response.
+
+- `shutdown_hook(func)` where `func` is a function which will be called before closing the server.
 
 - `start(config)` where `config` contains the `host` and the `port` to run the application.
 - `logger` table with support for INFO, DEBUG, and ERROR logging levels
