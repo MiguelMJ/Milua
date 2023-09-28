@@ -140,7 +140,8 @@ sudo luarocks make
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/wmb1207"><img src="https://avatars.githubusercontent.com/u/89983571?v=4?s=100" width="100px;" alt=""/><br /><sub><b>wmb1207</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Code">💻</a> <a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/wmb1207"><img src="https://avatars.githubusercontent.com/u/89983571?v=4?s=100" width="100px;" alt="wmb1207"/><br /><sub><b>wmb1207</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Code">💻</a> <a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/rdleal"><img src="https://avatars.githubusercontent.com/u/54686430?v=4?s=100" width="100px;" alt="rdleal"/><br /><sub><b>rdleal</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=rdleal" title="Code">💻</a> <a href="https://github.com/MiguelMJ/Milua/commits?author=rdleal" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>

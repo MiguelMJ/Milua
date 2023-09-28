@@ -15,6 +15,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "rdleal",
+      "name": "rdleal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54686430?v=4",
+      "profile": "https://github.com/rdleal",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -22,5 +32,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "projectName": "Milua",
-  "projectOwner": "MiguelMJ"
+  "projectOwner": "MiguelMJ",
+  "commitType": "docs"
 }
