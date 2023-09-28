@@ -134,6 +134,9 @@ local function onerror(myserver, context, op, err, errno) -- luacheck: ignore 21
         logger.ERROR(msg)
     end
 
+-- no-op function by default
+local onshutdown = function() return nil end
+
 function app.start(config)
     config = config or {}
     local myserver = assert(http_server.listen {
@@ -159,6 +162,7 @@ function app.start(config)
     -- https://stackoverflow.com/questions/32337591/how-catch-ctrl-c-in-lua-when-ctrl-c-is-sent-via-the-command-line#34409274
     signal.signal(signal.SIGINT, function(signum)
         logger.INFO("Shuting down server")
+        onshutdown()
         myserver:close()
         logger.INFO("BYE!!")
         os.exit(128 + signum)
@@ -166,6 +170,11 @@ function app.start(config)
 
     -- Start the main server loop
     assert(myserver:loop())
+end
+
+function app.shutdown_hook(func)
+    assert(type(func) == "function", "parameter to shutdown_hook must be a function")
+    onshutdown = func
 end
 
 return app
