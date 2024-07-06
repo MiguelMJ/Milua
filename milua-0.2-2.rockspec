@@ -10,7 +10,6 @@ description = {
    license = "MIT"
 }
 dependencies = {
-   "lua ~> 5.4",
    "http ~> 0.4",
    "net-url ~> 1.1-1",
    "luaposix ~> 35.1-1"
