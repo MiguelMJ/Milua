@@ -9,13 +9,11 @@ local function to_data_dict(tbl)
     local new_table = {}
 
     for key, value in pairs(tbl) do
-
         local value_type = type(value)
         if value_type ~= 'function' then
             if value_type == 'table' then new_table[key] = to_data_dict(value) end
             new_table[key] = value
         end
-
     end
     return new_table
 end
@@ -26,13 +24,13 @@ end
 -- if the value is a table then the empty value is {}
 -- @param value the table to process (any)
 -- @return bool (bool)
--- @usage if utilities.is_empty(variable) then 
+-- @usage if utilities.is_empty(variable) then
 local function is_empty(value)
     assert(value)
     local defaults = {
         ["number"] = function() return value == 0 end,
         ["string"] = function() return value == "" end,
-        ["table"]= function() return #value == 0 end
+        ["table"] = function() return #value == 0 end
     }
     return defaults[type(value)]
 end
@@ -51,9 +49,9 @@ local function dump_table(tbl)
 
     for key, value in pairs(tbl) do
         if type(value) ~= 'function' then
-            if type(key) ~= 'number' then key = '"'..key..'"' end
+            if type(key) ~= 'number' then key = '"' .. key .. '"' end
             if type(value) == 'table' then value = dump_table(value) end
-            output = output .. '['..key..'] = ' .. value .. ','
+            output = output .. '[' .. key .. '] = ' .. value .. ','
         end
     end
     return output .. '} '

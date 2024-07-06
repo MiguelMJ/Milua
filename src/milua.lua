@@ -2,7 +2,6 @@
 milua: Lua micro framework for web development
 
 This is a heavily modified version of the server example in https://github.com/duarnimator/lua-http
-
 ]]
 
 local os = require "os"
@@ -28,14 +27,14 @@ local path_handlers = {
 
 -- A handler is a function(captures, query, headers, body) -> res_body, res_headers
 function app.add_handler(method, url_pattern, handler)
-    local processed_pattern = "^"..url_pattern:gsub("[.][.][.]", "([^/?]+)").."$"
+    local processed_pattern = "^" .. url_pattern:gsub("[.][.][.]", "([^/?]+)") .. "$"
     local exists = path_handlers[method]
-    if (not(exists)) then
-        logger.ERROR("CANNOT ADD HANDLER TO THE METHOD "..method)
+    if (not (exists)) then
+        logger.ERROR("CANNOT ADD HANDLER TO THE METHOD " .. method)
         os.exit()
     end
-    path_handlers[method][processed_pattern] =  handler
-    logger.INFO("Handler added for: "..method.." "..url_pattern)
+    path_handlers[method][processed_pattern] = handler
+    logger.INFO("Handler added for: " .. method .. " " .. url_pattern)
 end
 
 local function reply(_, stream) -- luacheck: ignore 212
@@ -70,8 +69,7 @@ local function reply(_, stream) -- luacheck: ignore 212
     -- Look for a pattern that matches the path
     local path_wo_query = path:gsub("?.*", "")
     for pattern, handler in pairs(path_handlers[req_method]) do
-
-        local captures = {path_wo_query:match(pattern)}
+        local captures = { path_wo_query:match(pattern) }
 
         -- The pattern matches
         if #captures > 0 then
@@ -90,36 +88,35 @@ local function reply(_, stream) -- luacheck: ignore 212
             )
 
             -- Merge headers with defaults
-            for key,value in pairs(ret_res_headers or {}) do
+            for key, value in pairs(ret_res_headers or {}) do
                 res_headers:upsert(string.lower(key), value)
             end
 
             -- Send answer
             local result = stream:write_headers(res_headers, false)
-            if (not(result)) then
+            if (not (result)) then
                 logger.ERROR(string.format("ERROR WRITING THE RESPONSE HEADERS %s", res_headers))
             end
             if (res_body) then
                 result = stream:write_body_from_string(res_body, false)
-                if (not(result)) then
+                if (not (result)) then
                     logger.ERROR(string.format("ERROR WRITING THE RESPONSE BODY %s", res_headers))
                 end
             end
             -- RETURN
             return
         end
-
     end
     -- If the loop ends it means that no pattern matched
     -- RETURN 404
     res_headers:upsert(":status", "404")
     res_headers:upsert("content-type", "text/plain")
     local response = stream:write_headers(res_headers, false)
-    if (not(response)) then
+    if (not (response)) then
         logger.ERROR(string.format("ERROR WRITING THE RESPONSE HEADERS %s", res_headers))
     end
     response = stream:write_body_from_string("Not found")
-    if (not(response)) then
+    if (not (response)) then
         logger.ERROR(string.format("ERROR WRITING THE RESPONSE BODY %s", res_headers))
     end
 end
@@ -127,12 +124,12 @@ end
 
 
 local function onerror(myserver, context, op, err, errno) -- luacheck: ignore 212
-        local msg = op .. " on " .. tostring(context) .. " failed"
-        if err then
-            msg = msg .. ": " .. tostring(err)
-        end
-        logger.ERROR(msg)
+    local msg = op .. " on " .. tostring(context) .. " failed"
+    if err then
+        msg = msg .. ": " .. tostring(err)
     end
+    logger.ERROR(msg)
+end
 
 -- no-op function by default
 local onshutdown = function() return nil end
@@ -140,10 +137,10 @@ local onshutdown = function() return nil end
 function app.start(config)
     config = config or {}
     local myserver = assert(http_server.listen {
-        host = config.HOST or "localhost";
-        port = config.PORT or 8800;
-        onstream = reply;
-        onerror = onerror;
+        host = config.HOST or "localhost",
+        port = config.PORT or 8800,
+        onstream = reply,
+        onerror = onerror,
     })
 
     -- Manually call :listen() so that we are bound before calling :localname()

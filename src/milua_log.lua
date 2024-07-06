@@ -21,18 +21,18 @@ local outputs = {
 -- @usage str = format(variable_a, variable_b, variable_c)
 local function format(...)
     local msg = ''
-    for _, value in pairs({...}) do
+    for _, value in pairs({ ... }) do
         if (type(value) == 'table') then
-            msg = msg..utilities.dump_table(value)..' '
+            msg = msg .. utilities.dump_table(value) .. ' '
         else
-            msg = msg..tostring(value)..' '
+            msg = msg .. tostring(value) .. ' '
         end
     end
     return msg
 end
 
 --- default_formatter, defalut function to format the log output
--- @param lvl the log lvl to use (string) 
+-- @param lvl the log lvl to use (string)
 -- @param ... any amount of variables (any)
 -- @return msg (string)
 -- @usage str = default_formatter('INFO', variable_a, variable_b, variable_c)
@@ -41,7 +41,7 @@ local function default_formatter(lvl, ...)
 end
 
 --- default_logger, get a logger with the default configs
--- @param lvl the log lvl to use (string) 
+-- @param lvl the log lvl to use (string)
 -- @return function(msg) (function(string))
 -- @usage logger = default_logger('INFO'); logger('this is a pretty good message')
 local function default_logger(lvl)
@@ -54,7 +54,7 @@ local function default_logger(lvl)
     else
         stream = std_out
     end
-    return function (msg)
+    return function(msg)
         if (outputs[stream]) then
             outputs[stream](default_formatter(lvl, msg))
             return
@@ -70,14 +70,14 @@ end
 -- LOGGER
 
 logger = {
-    DEBUG = default_logger("DEBUG");
-    INFO = default_logger("INFO");
-    ERROR = default_logger("ERROR");
-    format = format;
+    DEBUG = default_logger("DEBUG"),
+    INFO = default_logger("INFO"),
+    ERROR = default_logger("ERROR"),
+    format = format,
 }
 
 --- logger:add_logger, add a custom logger function to the logger table
--- @param lvl the log lvl to use (string) 
+-- @param lvl the log lvl to use (string)
 -- @param logger_fn the logger function (function)
 -- @usage logger:add_logger("INFO", function(...)
 --     print("THIS IS A CUSTOM LOGGER ", logger.format(...))
@@ -88,4 +88,3 @@ function logger:add_logger(lvl, logger_fn)
 end
 
 return logger
-

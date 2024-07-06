@@ -11,10 +11,10 @@ ENV_CMD = "env | grep MILUA_"
 ENV_FILE = ".env"
 
 local Config = {
-    PORT=8800,
-    HOST="localhost",
-    STDOUT="stdout",
-    STDERR="stderr"
+    PORT = 8800,
+    HOST = "localhost",
+    STDOUT = "stdout",
+    STDERR = "stderr"
 }
 
 --- get_key_value_env, get the key, value from an environment variable starting with MILUA_
@@ -28,7 +28,7 @@ local function get_key_value_env(str_env)
     return key, value
 end
 
---- Config:from_env, get the config values from the environment variables 
+--- Config:from_env, get the config values from the environment variables
 -- @return self (Config)
 -- @usage Config:from_env()
 function Config:from_env()
@@ -53,7 +53,7 @@ end
 function Config:from_env_file()
     local env_file = Config.ENV_FILE or ENV_FILE
     local opened_env_file = io.open(env_file, "r")
-    if not(opened_env_file) then return Config end
+    if not (opened_env_file) then return Config end
     opened_env_file:close() -- We just tested that the file exists
     for line in io.lines(env_file) do
         local key, value = get_key_value_env(line)
@@ -72,7 +72,7 @@ function Config:add_config(key, value)
     return self
 end
 
---- Config:extend, Extend the config table based on a new table 
+--- Config:extend, Extend the config table based on a new table
 -- If you pass a key value pair where the value is empty ("", 0, {})
 -- It will get it from the env_file or the env
 -- @return self (Config)
