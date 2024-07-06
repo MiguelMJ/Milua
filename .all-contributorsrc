@@ -2,10 +2,25 @@
   "files": [
     "README.md"
   ],
+  "types": {
+    "creator": {
+      "symbol": "☕",
+      "description": "Creator"
+    }
+  },
   "imageSize": 100,
   "commit": false,
   "commitConvention": "angular",
   "contributors": [
+    {
+      "login": "MiguelMJ",
+      "name": "MiguelMJ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37369782?v=4",
+      "profile": "https://github.com/MiguelMJ",
+      "contributions": [
+        "creator"
+      ]
+    },
     {
       "login": "wmb1207",
       "name": "wmb1207",
@@ -24,6 +39,16 @@
       "contributions": [
         "code",
         "doc"
+      ]
+    },
+    {
+      "login": "dhhyi",
+      "name": "Danilo Hoffmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23452927?v=4",
+      "profile": "https://github.com/dhhyi",
+      "contributions": [
+        "code",
+        "example"
       ]
     }
   ],

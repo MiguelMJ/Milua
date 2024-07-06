@@ -12,13 +12,14 @@ Milua is inspired by frameworks like Flask or Express, so it just aims to be qui
 - [Preview](#preview)
 - [Features](#features)
 - [Installation](#installation)
+- [Contributors](#contributors)
 - [Alternatives](#alternatives)
 - [License](#license)
 
 
 ## Preview
 
-`examples/handsome_server.lua`
+`doc/examples/handsome_server.lua`
 ```lua
 local app = require("milua")
 
@@ -62,7 +63,7 @@ app.start()
 ```
 You can run the example directly:
 ```bash
-lua examples/handsome_server.lua
+lua doc/examples/handsome_server.lua
 ```
 And test it with `curl`:
 ```output
@@ -140,18 +141,13 @@ sudo luarocks make
 <table>
   <tbody>
     <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/MiguelMJ"><img src="https://avatars.githubusercontent.com/u/37369782?v=4?s=100" width="100px;" alt="MiguelMJ"/><br /><sub><b>MiguelMJ</b></sub></a><br /><a href="#creator-MiguelMJ" title="Creator">☕</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/wmb1207"><img src="https://avatars.githubusercontent.com/u/89983571?v=4?s=100" width="100px;" alt="wmb1207"/><br /><sub><b>wmb1207</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Code">💻</a> <a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/rdleal"><img src="https://avatars.githubusercontent.com/u/54686430?v=4?s=100" width="100px;" alt="rdleal"/><br /><sub><b>rdleal</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=rdleal" title="Code">💻</a> <a href="https://github.com/MiguelMJ/Milua/commits?author=rdleal" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dhhyi"><img src="https://avatars.githubusercontent.com/u/23452927?v=4?s=100" width="100px;" alt="Danilo Hoffmann"/><br /><sub><b>Danilo Hoffmann</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=dhhyi" title="Code">💻</a> <a href="#example-dhhyi" title="Examples">💡</a></td>
     </tr>
   </tbody>
 </table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
