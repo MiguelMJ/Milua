@@ -14,8 +14,8 @@ app.add_handler(
 -- Example capturing a path variable
 app.add_handler(
     "GET",
-    "/user/...", 
-    function (captures, query, headers)
+    "/user/...",
+    function(captures, query, headers)
         local username = captures[1]
         local times = query.times or 1
         return "The user " .. username .. " is" .. (" very"):rep(times) .. " handsome"
@@ -26,9 +26,14 @@ app.add_handler(
 app.add_handler(
     "DELETE",
     "/user",
-    function ()
+    function()
         return nil, { [":status"] = "204" }
     end
 )
 
-app.start()
+local config = {
+    HOST = "0.0.0.0",
+    PORT = "8080",
+}
+
+app.start(config)
