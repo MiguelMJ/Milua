@@ -137,7 +137,7 @@ local onshutdown = function() return nil end
 function app.start(config)
     config = config or {}
     local myserver = assert(http_server.listen {
-        host = config.HOST or "localhost",
+        host = config.HOST or "0.0.0.0",
         port = config.PORT or 8800,
         onstream = reply,
         onerror = onerror,
