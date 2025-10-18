@@ -122,6 +122,7 @@ Right now the `milua` module only offers:
         ```
 
 ## Installation
+
 You can install it directly from luarocks:
 ```bash
 luarocks install milua
@@ -132,6 +133,20 @@ git clone https://github.com/MiguelMJ/Milua
 cd Milua
 sudo luarocks make
 ```
+
+## Trobleshooting
+
+You may want to install Milua as with the `--local` flag via Luarocks. In that case you will need to install `luaossl` as a local dependency too. 
+In Debian (derived) system this is solved easily with the installation of `libssl-dev`. 
+But, on Arch (derived) systems, the installation of OpenSSL variants/versions (which include headers files) will not solve the installation problem. Because `luaossl` is a prerequisite for Milua, Arch base systems will not finish successfully the installation of Milua complaining about not being able to compile a `ssl.o` file. 
+And most of the documentation online will suggest to provide manually the `OPENSSL_INCDIR` path pointing to the `include/ssl.h` file, which will not fix the issue.
+
+The solution is to install previously the `luaossl` library with a proper flag, like this: 
+
+```bash
+CFLAGS="-Wno-error=incompatible-pointer-types" luarocks install --local luaossl
+```
+After that you can install `Milua` with the `--local` flag as usual.
 
 ## Contributors
 
