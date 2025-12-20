@@ -20,13 +20,12 @@ Milua is inspired by frameworks like Flask or Express, so it just aims to be qui
 
 ## Preview
 
-`doc/examples/handsome_server.lua`
+Here's a minimal example of how to use Milua:
+
 ```lua
 local app = require("milua")
 
--- Basic example
-app.add_handler(
-    "GET",
+app.get(
     "/",
     function()
         return "<h1>Welcome to the <i>handsome</i> server!</h1>", {
@@ -36,33 +35,18 @@ app.add_handler(
 )
 
 -- Example capturing a path variable
-app.add_handler(
-    "GET",
-    "/user/...", 
-    function (captures, query, headers)
-        local username = captures[1]
+app.get(
+    "/user/{username}/tell",
+    function(path_params, query)
         local times = query.times or 1
-        return "The user " .. username .. " is" .. (" very"):rep(times) .. " handsome"
+        return "The user " .. path_params.username .. " is" .. (" very"):rep(times) .. " handsome\n"
     end
 )
-
--- Example returning no data and status
-app.add_handler(
-    "DELETE",
-    "/user",
-    function ()
-        return nil, { [":status"] = "204" }
-    end
-)
-
--- Hooking the server close event
-app.shutdown_hook(function()
-    -- cleaning up any external resource
-end)
 
 app.start()
 ```
-You can run the example directly:
+
+You can run an extended version of this example directly:
 ```bash
 lua doc/examples/handsome_server.lua
 ```
@@ -82,9 +66,9 @@ The user foo is very very very handsome
 
 Right now the `milua` module only offers:
 
-- `add_handler(method, path, handler)` to associate a method and a path to a handler.
-    - The handler function must accept the following arguments:
-        - `captures`: An array with the variables fields of the path, specified with `...`.
+- `get(path, callback)`. Associates a `path` to a `callback` when called with the HTTP verb GET.
+    - The callback function must accept the following arguments:
+        - `captures`: A table with the path parameters, that appear appear brackets in the path: `{param}`.
         - `query`: A table with the key-value pairs of the query in the URL.
         - `headers`: The headers of the HTTP request.
         - `body`: The body of the HTTP request.
@@ -114,7 +98,7 @@ Right now the `milua` module only offers:
             DB_HOST="host",
             HOST="localhost",
             STDOUT="localhost",
-            WOLOLOLO=""
+            MY_SECRET_KEY=""
         })
         
         config.add_config("NEW_KEY", "NEW_VALUE")
