@@ -122,6 +122,7 @@ Right now the `milua` module only offers:
         ```
 
 ## Installation
+
 You can install it directly from luarocks:
 ```bash
 luarocks install milua
@@ -132,6 +133,20 @@ git clone https://github.com/MiguelMJ/Milua
 cd Milua
 sudo luarocks make
 ```
+
+## Trobleshooting
+
+You may want to install Milua as with the `--local` flag via Luarocks. In that case you will need to install `luaossl` as a local dependency too. 
+In Debian (derived) system this is solved easily with the installation of `libssl-dev`. 
+But, on Arch (derived) systems, the installation of OpenSSL variants/versions (which include headers files) will not solve the installation problem. Because `luaossl` is a prerequisite for Milua, Arch base systems will not finish successfully the installation of Milua complaining about not being able to compile a `ssl.o` file. 
+And most of the documentation online will suggest to provide manually the `OPENSSL_INCDIR` path pointing to the `include/ssl.h` file, which will not fix the issue.
+
+The solution is to install previously the `luaossl` library with a proper flag, like this: 
+
+```bash
+CFLAGS="-Wno-error=incompatible-pointer-types" luarocks install --local luaossl
+```
+After that you can install `Milua` with the `--local` flag as usual.
 
 ## Contributors
 
@@ -145,6 +160,7 @@ sudo luarocks make
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/wmb1207"><img src="https://avatars.githubusercontent.com/u/89983571?v=4?s=100" width="100px;" alt="wmb1207"/><br /><sub><b>wmb1207</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Code">💻</a> <a href="https://github.com/MiguelMJ/Milua/commits?author=wmb1207" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/rdleal"><img src="https://avatars.githubusercontent.com/u/54686430?v=4?s=100" width="100px;" alt="rdleal"/><br /><sub><b>rdleal</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=rdleal" title="Code">💻</a> <a href="https://github.com/MiguelMJ/Milua/commits?author=rdleal" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/dhhyi"><img src="https://avatars.githubusercontent.com/u/23452927?v=4?s=100" width="100px;" alt="Danilo Hoffmann"/><br /><sub><b>Danilo Hoffmann</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=dhhyi" title="Code">💻</a> <a href="#example-dhhyi" title="Examples">💡</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://mutabit.com"><img src="https://avatars.githubusercontent.com/u/5748170?v=4?s=100" width="100px;" alt="Offray Vladimir Luna Cárdenas"/><br /><sub><b>Offray Vladimir Luna Cárdenas</b></sub></a><br /><a href="https://github.com/MiguelMJ/Milua/commits?author=offray" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>

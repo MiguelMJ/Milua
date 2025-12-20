@@ -50,6 +50,15 @@
         "code",
         "example"
       ]
+    },
+    {
+      "login": "offray",
+      "name": "Offray Vladimir Luna Cárdenas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5748170?v=4",
+      "profile": "http://mutabit.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
