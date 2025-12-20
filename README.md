@@ -75,6 +75,7 @@ Right now the `milua` module only offers:
     - and must return the following values:
         - The body of the repsonse.
         - (Optional) A table with the headers of the response.
+- Equivalent functions for all other HTTP verbs: `post`, `put`, `patch`, `delete`, etc.
 
 - `shutdown_hook(func)` where `func` is a function which will be called before closing the server.
 
