@@ -1,7 +1,7 @@
 --[[
 milua: Lua micro framework for web development
 
-This is a heavily modified version of the server example in https://github.com/duarnimator/lua-http
+This file is a mostly rewritten version of https://github.com/duarnimator/lua-http
 ]]
 
 local os = require "os"
@@ -12,116 +12,150 @@ local http_headers = require "http.headers"
 local logger = require "milua_log"
 
 local app = {}
+local path_handlers = {}
+local default_response_headers = http_headers.new()
+default_response_headers:append(":status", "200")
 
-local path_handlers = {
-    GET = {},
-    HEAD = {},
-    POST = {},
-    PUT = {},
-    DELETE = {},
-    CONNECT = {},
-    OPTIONS = {},
-    TRACE = {},
-    PATCH = {},
-}
+function app.add_callback(method, path_pattern, callback)
+    local path_param_pattern = "{([^}]+)}"
+    local path_param_names = {}
+    for path_param_name in path_pattern:gmatch(path_param_pattern) do
+        table.insert(path_param_names, path_param_name)
+    end
 
--- A handler is a function(captures, query, headers, body) -> res_body, res_headers
-function app.add_handler(method, url_pattern, handler)
-    local processed_pattern = "^" .. url_pattern:gsub("[.][.][.]", "([^/?]+)") .. "$"
-    local exists = path_handlers[method]
-    if (not (exists)) then
-        logger.ERROR("CANNOT ADD HANDLER TO THE METHOD " .. method)
+    local final_pattern = "^" .. path_pattern:gsub(path_param_pattern, "([^/?]+)") .. "$"
+    if (path_handlers[final_pattern] == nil) then
+        path_handlers[final_pattern] = {}
+    end
+    if (path_handlers[final_pattern][method] ~= nil) then
+        logger.ERROR("Cannot add repeated endpoint: " .. method .. " " .. final_pattern)
         os.exit()
     end
-    path_handlers[method][processed_pattern] = handler
-    logger.INFO("Handler added for: " .. method .. " " .. url_pattern)
+
+    path_handlers[final_pattern][method] = { callback = callback, param_names = path_param_names }
 end
 
-local function reply(_, stream) -- luacheck: ignore 212
-    -- Read in headers
+for _, http_verb in ipairs({ "GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH" }) do
+    app[http_verb:lower()] = function(url_pattern, callback)
+        app.add_callback(http_verb, url_pattern, callback)
+    end
+end
+
+local headers_to_table = function(headers)
+    local headers_table = {}
+    for key, value in headers:each() do
+        headers_table[key] = value
+    end
+
+    return headers_table
+end
+
+local captures_to_named_params = function(params, captures)
+    local named_params = {}
+    for i, param in ipairs(params) do
+        named_params[param] = captures[i]
+    end
+
+    return named_params
+end
+
+local send_answer = function(stream, headers, body)
+    local result = stream:write_headers(headers, false)
+    if (not (result)) then
+        logger.ERROR(string.format("Could not write response headers: %s", headers))
+    end
+    if (body) then
+        result = stream:write_body_from_string(body, false)
+        if (not (result)) then
+            logger.ERROR(string.format("Could not write response body: %s", headers))
+        end
+    end
+end
+
+local send_method_not_allowed = function(stream)
+    local response_headers = default_response_headers:clone()
+    response_headers:upsert(":status", "405")
+    response_headers:upsert("content-type", "text/plain")
+    send_answer(stream, response_headers, "Method not allowed")
+end
+
+local send_not_found = function(stream)
+    local response_headers = default_response_headers:clone()
+    response_headers:upsert(":status", "404")
+    response_headers:upsert("content-type", "text/plain")
+    send_answer(stream, response_headers, "Not found")
+end
+
+local send_internal_server_error = function(stream, body)
+    local response_headers = default_response_headers:clone()
+    response_headers:upsert(":status", "500")
+    response_headers:upsert("content-type", "text/plain")
+    send_answer(stream, response_headers, body)
+end
+
+local function reply(stream) -- luacheck: ignore 212
     local req_headers = assert(stream:get_headers())
     local req_method = req_headers:get ":method"
-
-    -- Get path
-    local path = req_headers:get(":path") or ""
+    local req_path = req_headers:get(":path") or ""
 
     logger.INFO(
         string.format(
             '"%s %s HTTP/%g" "%s" "%s"',
             req_method or "",
-            path,
+            req_path,
             stream.connection.version,
             req_headers:get("referer") or "-",
             req_headers:get("user-agent") or "-"
         )
     )
 
-    if (not (path_handlers[req_method])) then
-        logger.ERROR(
-            string.format("MISSNG %s METHOD", req_method)
-        )
-        os.exit(1)
-    end
-    -- Default headers
-    local res_headers = http_headers.new()
-    res_headers:append(":status", "200")
+    local req_url = url.parse(req_path):normalize()
+    local pattern, method_handlers = next(path_handlers)
+    local is_resolved = false
 
-    -- Look for a pattern that matches the path
-    local path_wo_query = path:gsub("?.*", "")
-    for pattern, handler in pairs(path_handlers[req_method]) do
-        local captures = { path_wo_query:match(pattern) }
+    while (not (is_resolved) and pattern ~= nil and method_handlers ~= nil) do
+        local captures = { req_url.path:match(pattern) }
+        is_resolved = #captures > 0
 
-        -- The pattern matches
-        if #captures > 0 then
-            -- Build headers table
-            local req_headers_table = {}
-            for key, value in req_headers:each() do
-                req_headers_table[key] = value
+        if is_resolved then
+            local response_headers = default_response_headers:clone()
+            local handler = method_handlers[req_method]
+            if (handler == nil) then
+                send_method_not_allowed(stream)
+                return
             end
-
-            -- Call handler
-            local res_body, ret_res_headers = handler(
-                captures,
-                url.parse(path).query,
-                req_headers_table,
+            local response_body, user_headers = handler.callback(
+                captures_to_named_params(handler.param_names, captures),
+                req_url.query,
+                headers_to_table(req_headers),
                 stream:get_body_as_string()
             )
 
-            -- Merge headers with defaults
-            for key, value in pairs(ret_res_headers or {}) do
-                res_headers:upsert(string.lower(key), value)
+            for key, value in pairs(user_headers or {}) do
+                response_headers:upsert(string.lower(key), value)
             end
 
-            -- Send answer
-            local result = stream:write_headers(res_headers, false)
-            if (not (result)) then
-                logger.ERROR(string.format("ERROR WRITING THE RESPONSE HEADERS %s", res_headers))
-            end
-            if (res_body) then
-                result = stream:write_body_from_string(res_body, false)
-                if (not (result)) then
-                    logger.ERROR(string.format("ERROR WRITING THE RESPONSE BODY %s", res_headers))
-                end
-            end
-            -- RETURN
-            return
+            send_answer(stream, response_headers, response_body)
+        else
+            pattern, method_handlers = next(path_handlers, pattern)
         end
     end
-    -- If the loop ends it means that no pattern matched
-    -- RETURN 404
-    res_headers:upsert(":status", "404")
-    res_headers:upsert("content-type", "text/plain")
-    local response = stream:write_headers(res_headers, false)
-    if (not (response)) then
-        logger.ERROR(string.format("ERROR WRITING THE RESPONSE HEADERS %s", res_headers))
-    end
-    response = stream:write_body_from_string("Not found")
-    if (not (response)) then
-        logger.ERROR(string.format("ERROR WRITING THE RESPONSE BODY %s", res_headers))
+
+    if (not (is_resolved)) then
+        send_not_found(stream)
     end
 end
--- Reply function for the requests receievd by the server
 
+local onstream = function(_, stream) -- luacheck: ignore 212
+    xpcall(
+        reply,
+        function(err)
+            logger.ERROR(string.format("Error handling request: %s", err))
+            send_internal_server_error(stream, err)
+        end,
+        stream
+    )
+end
 
 local function onerror(myserver, context, op, err, errno) -- luacheck: ignore 212
     local msg = op .. " on " .. tostring(context) .. " failed"
@@ -131,7 +165,6 @@ local function onerror(myserver, context, op, err, errno) -- luacheck: ignore 21
     logger.ERROR(msg)
 end
 
--- no-op function by default
 local onshutdown = function() return nil end
 
 function app.start(config)
@@ -139,7 +172,7 @@ function app.start(config)
     local myserver = assert(http_server.listen {
         host = config.HOST or "0.0.0.0",
         port = config.PORT or 8800,
-        onstream = reply,
+        onstream = onstream,
         onerror = onerror,
     })
 
@@ -161,11 +194,10 @@ function app.start(config)
         logger.INFO("Shuting down server")
         onshutdown()
         myserver:close()
-        logger.INFO("BYE!!")
+        logger.INFO("Server shutdown")
         os.exit(128 + signum)
     end)
 
-    -- Start the main server loop
     assert(myserver:loop())
 end
 
