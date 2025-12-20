@@ -7,7 +7,7 @@
    viewBox="0 0 150 150"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
    sodipodi:docname="logo.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -23,15 +23,17 @@
      inkscape:pagecheckerboard="1"
      inkscape:document-units="px"
      showgrid="false"
-     inkscape:zoom="0.77058782"
-     inkscape:cx="243.32074"
-     inkscape:cy="350.38187"
+     inkscape:zoom="0.85997979"
+     inkscape:cx="155.23621"
+     inkscape:cy="327.33327"
      inkscape:window-width="1920"
-     inkscape:window-height="1051"
+     inkscape:window-height="1052"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2" />
   <g
@@ -39,36 +41,36 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       id="path111"
-       style="fill:#161650;fill-rule:evenodd;stroke-width:0.329722"
-       d="M 4.4032511,75.000007 A 72.265041,71.932381 0 0 0 76.668232,146.93233 72.265041,71.932381 0 0 0 145.59675,96.48924 64.545335,64.248211 0 0 1 84.816729,139.24861 64.545335,64.248211 0 0 1 20.271648,75.000007 64.545335,64.248211 0 0 1 84.816729,10.752049 64.545335,64.248211 0 0 1 145.18235,52.270742 72.265041,71.932381 0 0 0 76.668232,3.0676748 72.265041,71.932381 0 0 0 4.4032511,75.000007 Z" />
+       id="ellipse1"
+       style="fill:#2d2d2d;fill-opacity:1;fill-rule:evenodd;stroke-width:0.106829"
+       d="M 74.999848,50.548383 A 22.316244,24.451678 0 0 0 52.683739,75.000148 22.316244,24.451678 0 0 0 74.999848,99.451615 22.316244,24.451678 0 0 0 97.31626,75.001054 13.585659,14.885667 0 0 1 83.730332,89.885711 13.585659,14.885667 0 0 1 70.144712,75.000148 13.585659,14.885667 0 0 1 83.730332,60.114284 13.585659,14.885667 0 0 1 97.31626,74.99894 22.316244,24.451678 0 0 0 74.999848,50.548383 Z" />
     <ellipse
-       style="fill:#c87137;fill-rule:evenodd;stroke-width:0.0479418"
-       id="circle231"
-       cx="-75"
-       cy="66.416183"
-       transform="rotate(-90)"
-       rx="10.459013"
-       ry="10.507382" />
-    <path
-       id="path290"
-       style="fill:#a05a2c;fill-rule:evenodd;stroke-width:0.203632"
-       d="M 31.400325,75.000006 A 44.629992,44.424545 0 0 0 76.030278,119.42451 44.629992,44.424545 0 0 0 118.59967,88.271489 39.862397,39.678897 0 0 1 81.062689,114.67914 39.862397,39.678897 0 0 1 41.200449,75.000006 39.862397,39.678897 0 0 1 81.062689,35.321254 39.862397,39.678897 0 0 1 118.34375,60.962694 44.629992,44.424545 0 0 0 76.030278,30.575488 44.629992,44.424545 0 0 0 31.400325,75.000006 Z" />
-    <ellipse
-       style="fill:#d38d5f;fill-rule:evenodd;stroke-width:0.0322066"
+       style="fill:#2d2d2d;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0501438"
        id="ellipse310"
-       cx="-75"
-       cy="102.04004"
+       cx="-74.999992"
+       cy="107.79527"
        transform="rotate(-90)"
-       rx="7.3688397"
-       ry="6.730504" />
+       rx="11.472847"
+       ry="10.478996" />
+    <path
+       id="path2"
+       style="fill:#2d2d2d;fill-opacity:1;fill-rule:evenodd;stroke-width:0.258219"
+       d="M 64.528368,15.68172 A 53.745482,59.318433 0 0 0 10.783213,75.000365 53.745482,59.318433 0 0 0 64.528368,134.31828 53.745482,59.318433 0 0 0 118.27426,75.002561 32.719116,36.111812 0 0 1 85.5545,111.11192 32.719116,36.111812 0 0 1 52.835468,75.000365 32.719116,36.111812 0 0 1 85.5545,38.888073 32.719116,36.111812 0 0 1 118.27426,74.997433 53.745482,59.318433 0 0 0 64.528368,15.68172 Z" />
     <ellipse
-       style="fill:#deaa87;fill-rule:evenodd;stroke-width:0.0198841"
-       id="ellipse312"
+       style="fill:#2d2d2d;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0501438"
+       id="ellipse2"
        cx="-75"
-       cy="132.16821"
+       cy="86.837265"
        transform="rotate(-90)"
-       rx="4.5494628"
-       ry="4.1553597" />
+       rx="11.472847"
+       ry="10.478996" />
+    <ellipse
+       style="fill:#2d2d2d;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0501438"
+       id="ellipse3"
+       cx="-75"
+       cy="128.75325"
+       transform="rotate(-90)"
+       rx="11.472847"
+       ry="10.478996" />
   </g>
 </svg>
