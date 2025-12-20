@@ -12,6 +12,7 @@ Milua is inspired by frameworks like Flask or Express, so it just aims to be qui
 - [Preview](#preview)
 - [Features](#features)
 - [Installation](#installation)
+  - [Troubleshooting](#troubleshooting)
 - [Contributors](#contributors)
 - [Alternatives](#alternatives)
 - [License](#license)
@@ -94,7 +95,7 @@ Right now the `milua` module only offers:
 - `shutdown_hook(func)` where `func` is a function which will be called before closing the server.
 
 - `start(config)` where `config` contains the `host` and the `port` to run the application.
-- `logger` table with support for INFO, DEBUG, and ERROR logging levels
+- `logger` table with support for `INFO`, `DEBUG`, and `ERROR` logging levels
     - usage:
         - `logger:INFO("this is an info message")`
         - `logger:ERROR("this is an error message")`
@@ -102,12 +103,12 @@ Right now the `milua` module only offers:
     - How to custom logger levels:
         - `logger:add_logger("INFO", function(...) print("THIS A TEMPLATE", logger.format(...)) end)`
 - `config` table with support for getting configuration values from environment variables as well as .env files
-    - This also let's you extend the config table with a new table where if you define an emty value for a key it will try to get it from a .env file or the os environment
+    - This also lets you extend the config table with a new table where if you define an empty value for a key it will try to get it from a `.env` file or the os environment
     - example: 
         ```lua
-        local Config = require("milua_config")
+        local config = require("milua_config")
 
-        Config:extend({
+        config:extend({
             DB_NAME="name",
             DB_PASS="pass",
             DB_HOST="host",
@@ -116,9 +117,9 @@ Right now the `milua` module only offers:
             WOLOLOLO=""
         })
         
-        Config.add_config("NEW_KEY", "NEW_VALUE")
+        config.add_config("NEW_KEY", "NEW_VALUE")
         
-        app.start(Config)
+        app.start(config)
         ```
 
 ## Installation
@@ -134,7 +135,7 @@ cd Milua
 sudo luarocks make
 ```
 
-## Trobleshooting
+### Troubleshooting
 
 You may want to install Milua as with the `--local` flag via Luarocks. In that case you will need to install `luaossl` as a local dependency too. 
 In Debian (derived) system this is solved easily with the installation of `libssl-dev`. 
