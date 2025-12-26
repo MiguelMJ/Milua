@@ -3,7 +3,8 @@
 <h3 align="center">Lua micro framework for web development</h3>
 <p align="center">
 <img src="https://img.shields.io/badge/Lua-5.4-2C2D72?style=flat-square&logo=lua">
-<img src="https://img.shields.io/luarocks/v/MiguelMJ/milua?style=flat-square"/>
+<a href="https://luarocks.org/modules/miguelmj/milua"><img src="https://img.shields.io/luarocks/v/MiguelMJ/milua?style=flat-square"/></a>
+<a href="https://hub.docker.com/r/miguelmj/milua-alpine"><img src="https://img.shields.io/badge/-dockerhub-2C2D72?style=flat-square&logo=docker"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational?style=flat-square"/></a>
 </p>
 
